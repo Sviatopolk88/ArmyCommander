@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Attack))]
 public class EnemyAttack : MonoBehaviour
 {
     public float TimeRecharge = 0.3f;
@@ -13,7 +14,6 @@ public class EnemyAttack : MonoBehaviour
     private List<GameObject> _targets = new List<GameObject>();
 
     private Transform _source;
-    private Transform _target;
 
     private void Awake()
     {
@@ -36,7 +36,7 @@ public class EnemyAttack : MonoBehaviour
             _timer += Time.deltaTime;
             if (_timer >= TimeRecharge)
             {
-                _attack.Shoot(_source, _targets[0].transform);
+                _attack.Shoot(this.transform, _targets[0].transform);
                 _timer = 0;
             }
         }
@@ -47,8 +47,6 @@ public class EnemyAttack : MonoBehaviour
         if (!_targets.Contains(detectedObject))
         {
             _targets.Add(detectedObject);
-            _source = source.transform;
-            _target = detectedObject.transform;
         }
     }
 

@@ -9,9 +9,8 @@ public class Attack : MonoBehaviour
     {
         var bullet = Instantiate(_bullet);
         bullet.transform.position = transform.TransformPoint(Vector3.forward * 1.5f);
-        //bullet.transform.rotation = transform.rotation;
         bullet.Target = target;
-        //var damage = source.GetComponent<IPowerAttack>().damage;
-        //bullet.Damage = damage;
+        var damage = source.GetComponentInParent<IPowerAttack>().damage;
+        bullet.Damage = damage;
     }
 }

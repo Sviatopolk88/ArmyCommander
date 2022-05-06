@@ -1,16 +1,20 @@
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour, IHittable
+public class PlayerController : MonoBehaviour, IHittable, IPowerAttack
 {
     public float Speed = 5f;
     public int MaxHealth = 100;
+    public int Damage = 10;
+    public int damage => Damage;
 
     [SerializeField] private Joystick _joystick;
 
     private Rigidbody _rigidbody;
     private int _health;
     private bool _isDead => _health <= 0;
+
     
+
     void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
@@ -24,7 +28,12 @@ public class PlayerController : MonoBehaviour, IHittable
     public void HitObject(int damage)
     {
         _health -= damage;
-        if (_isDead) Debug.Log("ГГ умер, несите нового");
+        if (_isDead)
+        {
+
+            Debug.Log("ГГ умер, несите нового"); // Добавить скрипт респавна
+        }
+            
     }
 
     public void HealthRestore(int restore)
