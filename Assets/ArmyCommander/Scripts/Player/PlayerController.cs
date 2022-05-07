@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour, IHittable, IPowerAttack
+public class PlayerController : MonoBehaviour, ICharacter, IHittable, IPowerAttack
 {
-    public float Speed = 5f;
+    //public float Speed = 5f;
     public int MaxHealth = 100;
     public int Damage = 10;
     public int damage => Damage;
@@ -10,10 +10,13 @@ public class PlayerController : MonoBehaviour, IHittable, IPowerAttack
     [SerializeField] private Joystick _joystick;
 
     private Rigidbody _rigidbody;
-    private int _health;
-    private bool _isDead => _health <= 0;
-
     
+    private int _health;
+
+    public float speed => 5f;
+
+    public bool isDied => _health <= 0;
+
 
     void Start()
     {
@@ -23,14 +26,15 @@ public class PlayerController : MonoBehaviour, IHittable, IPowerAttack
 
     private void FixedUpdate()
     {
-        _rigidbody.velocity = new Vector3(_joystick.Horizontal * Speed, 0, _joystick.Vertical * Speed);
+        _rigidbody.velocity = new Vector3(_joystick.Horizontal * speed, 0, _joystick.Vertical * speed);
     }
     public void HitObject(int damage)
     {
         _health -= damage;
-        if (_isDead)
+        if (isDied)
         {
-
+            EventManager.SendCharacterDie(gameObject);
+            Destroy(gameObject, 0.3f);
             Debug.Log("ГГ умер, несите нового"); // Добавить скрипт респавна
         }
             

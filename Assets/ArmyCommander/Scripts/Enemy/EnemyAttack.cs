@@ -12,6 +12,7 @@ public class EnemyAttack : MonoBehaviour
     private Attack _attack;
     private float _timer = 0;
     private List<GameObject> _targets = new List<GameObject>();
+    private GameObject _target;
 
     private Transform _source;
 
@@ -23,6 +24,7 @@ public class EnemyAttack : MonoBehaviour
     {
         _detector.OnGameObjectDetectedEvent += OnGameObjectDetected;
         _detector.OnGameObjectDetectionReleasedEvent += OnGameObjectDetectionReleased;
+        EventManager.OnCharacterDie.AddListener(PlayerKilled);
     }
 
     private void Start()
@@ -33,15 +35,22 @@ public class EnemyAttack : MonoBehaviour
     {
         if (_targets.Count > 0)
         {
+            _target = _targets[0];
             _timer += Time.deltaTime;
             if (_timer >= TimeRecharge)
             {
                 _attack.Shoot(this.transform, _targets[0].transform);
                 _timer = 0;
+
             }
         }
     }
 
+    private void PlayerKilled(GameObject player)
+    {
+        _detector.ReleaseDetection(player.GetComponent<IDetectableObject>());
+    }
+    
     private void OnGameObjectDetected(GameObject source, GameObject detectedObject)
     {
         if (!_targets.Contains(detectedObject))

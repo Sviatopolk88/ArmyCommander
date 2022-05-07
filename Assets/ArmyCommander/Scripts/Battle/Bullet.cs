@@ -10,7 +10,11 @@ public class Bullet : MonoBehaviour
     
     void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, Target.position, Speed * Time.deltaTime);
+        if (Target != null)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, Target.position, Speed * Time.deltaTime);
+        }
+        Destroy(gameObject, 1f); // Уменьшить время самоуничтожения
     }
 
     private void OnTriggerEnter(Collider other)

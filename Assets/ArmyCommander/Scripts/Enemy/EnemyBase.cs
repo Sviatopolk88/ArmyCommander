@@ -10,26 +10,16 @@ public class EnemyBase : MonoBehaviour, ICharacter, IHittable, IPowerAttack
     public int health => Health;
     public int damage => Damage;
     public float speed => Speed;
-    
-    private Detector _detector;
 
-    public event CharacterDieHandler OnCharacterDieEvent;
-
-    private void Start()
-    {
-        _detector = GetComponentInChildren<Detector>();
-    }
+    public bool isDied => Health <= 0;
 
     public void HitObject(int damage)
     {
         Health -= damage;
-        if (Health <= 0)
+        if (isDied)
         {
-            OnCharacterDieEvent?.Invoke(gameObject);
-            Destroy(gameObject);
+            EventManager.SendCharacterDie(gameObject);
+            Destroy(gameObject, 0.2f);
         }
-            
     }
-
-
 }

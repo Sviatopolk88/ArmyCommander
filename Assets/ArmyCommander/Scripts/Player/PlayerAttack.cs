@@ -8,23 +8,21 @@ public class PlayerAttack : MonoBehaviour
 {
     public float TimerRecharge = 0.3f;
 
-    private DetectableObject _detectableObject;
+    private Detector _detector;
     private Attack _attack;
     private float _timer = 0;
     private List<GameObject> _enemies = new List<GameObject>();
 
-    private Transform _source;
-
     private void Awake()
     {
-        _detectableObject = GetComponent<DetectableObject>();
-        
+        _detector = GetComponentInChildren<Detector>();
     }
 
     private void OnEnable()
     {
-        _detectableObject.OnGameObjectDetectedEvent += OnGameObjectDetected;
-        _detectableObject.OnGameObjectDetectionReleasedEvent += OnGameObjectDetectionReleased;
+        _detector.OnGameObjectDetectedEvent += OnGameObjectDetected;
+        _detector.OnGameObjectDetectionReleasedEvent += OnGameObjectDetectionReleased;
+        EventManager.OnCharacterDie.AddListener(EnemyKilled);
     }
 
     private void Start()
@@ -34,6 +32,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void Update()
     {
+        
         if (_enemies.Count > 0)
         {
             transform.LookAt(_enemies[0].transform);
@@ -44,12 +43,19 @@ public class PlayerAttack : MonoBehaviour
                 _timer = 0;
             }
         }
+        
     }
+
+    private void EnemyKilled(GameObject enemy)
+    {
+        _detector.ReleaseDetection(enemy.GetComponent<IDetectableObject>());
+    }
+
     private void OnGameObjectDetected(GameObject source, GameObject detectedObject)
     {
-        if (!_enemies.Contains(source))
+        if (!_enemies.Contains(detectedObject))
         {
-            _enemies.Add(source);
+            _enemies.Add(detectedObject);
         }
     }
 
@@ -60,9 +66,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void OnDisable()
     {
-        _detectableObject.OnGameObjectDetectedEvent -= OnGameObjectDetected;
-        _detectableObject.OnGameObjectDetectionReleasedEvent -= OnGameObjectDetectionReleased;
+        _detector.OnGameObjectDetectedEvent -= OnGameObjectDetected;
+        _detector.OnGameObjectDetectionReleasedEvent -= OnGameObjectDetectionReleased;
     }
-
-
 }

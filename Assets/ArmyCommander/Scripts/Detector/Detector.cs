@@ -10,13 +10,17 @@ public class Detector : MonoBehaviour, IDetector
 
     public void Detected(IDetectableObject detectableObject)
     {
-        if (!_detectedObjects.Contains(detectableObject.gameObject))
+        if(detectableObject.gameObject.layer != gameObject.layer)
         {
-            detectableObject.Detected(gameObject);
-            _detectedObjects.Add(detectableObject.gameObject);
+            if (!_detectedObjects.Contains(detectableObject.gameObject))
+            {
+                detectableObject.Detected(gameObject);
+                _detectedObjects.Add(detectableObject.gameObject);
             
-            OnGameObjectDetectedEvent?.Invoke(gameObject, detectableObject.gameObject);
+                OnGameObjectDetectedEvent?.Invoke(gameObject, detectableObject.gameObject);
+            }
         }
+        
     }
 
     public void ReleaseDetection(IDetectableObject detectableObject)
