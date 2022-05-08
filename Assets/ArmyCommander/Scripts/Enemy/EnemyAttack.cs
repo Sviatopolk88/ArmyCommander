@@ -37,7 +37,7 @@ public class EnemyAttack : MonoBehaviour
         {
             _target = _targets[0];
             _timer += Time.deltaTime;
-            if (_timer >= TimeRecharge)
+            if (_timer >= TimeRecharge && _targets[0] != null)
             {
                 _attack.Shoot(this.transform, _targets[0].transform);
                 _timer = 0;

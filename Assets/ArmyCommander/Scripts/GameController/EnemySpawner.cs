@@ -7,6 +7,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void Start()
     {
+        EnemyManager._enemyCount += CountEnemies;
         Spawn();
     }
 

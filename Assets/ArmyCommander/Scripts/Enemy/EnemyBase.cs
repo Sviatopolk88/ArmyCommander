@@ -19,7 +19,7 @@ public class EnemyBase : MonoBehaviour, ICharacter, IHittable, IPowerAttack
         if (isDied)
         {
             EventManager.SendCharacterDie(gameObject);
-            Destroy(gameObject, 0.2f);
+            Destroy(gameObject);
         }
     }
 }
