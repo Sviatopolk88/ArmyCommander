@@ -8,14 +8,20 @@ public class SoldjerSpawner : MonoBehaviour
     [SerializeField] private Transform _soldjerPrefab;
     [SerializeField] private SoldjerController _soldjers;
 
-    private int _index = 0;
+    private int _index;
     private Transform _point;
     private Coroutine _spawnerRoutine;
 
+
     void Start()
     {
+        StartSpawner();
+    }
+
+    public void StartSpawner()
+    {
+        _index = 0;
         _spawnerRoutine = StartCoroutine(Spawner());
-        
     }
 
     public void StopSpawner()

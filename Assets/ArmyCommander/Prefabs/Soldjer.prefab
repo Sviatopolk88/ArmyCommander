@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 3821462111723388767}
   - component: {fileID: 2930959900672647563}
   - component: {fileID: 4865088846219465647}
+  - component: {fileID: -8938779902740210335}
   - component: {fileID: 3577766886585596417}
   - component: {fileID: 7914838266754841670}
   - component: {fileID: 1690583393555390142}
@@ -142,7 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 669bad0fdb21d6a4896353cf12481d63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 300
+  Health: 100
   Damage: 10
   Speed: 3
 --- !u!114 &4865088846219465647
@@ -158,6 +159,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bullet: {fileID: 2544342779930833337, guid: 57daece2ddbb3814780d3f47151b9380, type: 3}
+--- !u!114 &-8938779902740210335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8486309625375129602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ddab71935dbe954ca1ffb2806d2c64e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _coin: {fileID: 208920107668371383, guid: d63305fa05f84e24c8c3fa807ea6b209, type: 3}
 --- !u!114 &3577766886585596417
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,15 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SoldjerController : MonoBehaviour
 {
-    public static bool IsCharge = false;
+    public UnityEvent OnSpawnerSoldjerEvent;
     
     private List<GameObject> _soldjers = new List<GameObject>();
     private SoldjerMove _soldjer;
 
-
+    private void OnEnable()
+    {
+        EventManager.OnCharacterDie.AddListener(RemoveSoldjersList);
+    }
     public void AddSoldjersList(GameObject soldjer)
     {
         _soldjers.Add(soldjer);
@@ -17,11 +21,16 @@ public class SoldjerController : MonoBehaviour
 
     public void RemoveSoldjersList(GameObject soldjer)
     {
-        _soldjers.Remove(soldjer);
-        if (_soldjers.Count == 0)
+        Debug.Log(soldjer);
+        if (soldjer.layer == 7)
         {
-            IsCharge = false;
+            _soldjers.Remove(soldjer);
+            if (_soldjers.Count <= 0)
+            {
+                OnSpawnerSoldjerEvent.Invoke();
+            }
         }
+
     }
     public void Charge()
     {
