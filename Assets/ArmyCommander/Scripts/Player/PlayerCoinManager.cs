@@ -9,15 +9,20 @@ public class PlayerCoinManager : MonoBehaviour
     private Vector3 _coinPosition = new Vector3(0, 0, -0.7f);
     private List<GameObject> _coins = new List<GameObject>();
     private DetectableObject _detectableObject;
+    private BuildBase _planeBuilding;
+    private Rigidbody _rb;
+    private Coroutine _soldRoutine;
 
     private void Awake()
     {
         _detectableObject = GetComponent<DetectableObject>();
+        _rb = GetComponent<Rigidbody>();
     }
 
     private void OnEnable()
     {
         _detectableObject.OnGameObjectDetectedEvent += OnGameObjectDetected;
+        _detectableObject.OnGameObjectDetectionReleasedEvent += OnGameObjectDetectionReleased;
     }
 
     private void OnGameObjectDetected(GameObject source, GameObject detectedObject)
@@ -27,6 +32,36 @@ public class PlayerCoinManager : MonoBehaviour
             AddCoin();
             Destroy(source);
         }
+
+        if (source.layer == 8)
+        {
+            _planeBuilding = source.GetComponent<BuildBase>();
+            _soldRoutine = StartCoroutine(IsStayPlayer());
+
+        }
+    }
+
+    private void OnGameObjectDetectionReleased(GameObject source, GameObject detectedObject)
+    {
+        if (source.layer == 8)
+        {
+            StopCoroutine(_soldRoutine);
+
+        }
+    }
+
+    private IEnumerator IsStayPlayer()
+    {
+        while (true)
+        {
+            if (_rb.velocity == Vector3.zero)
+            {
+                Debug.Log("Stay");
+                _planeBuilding.SoldBuild();
+            }
+            yield return new WaitForSeconds(0.3f);
+        }
+        
     }
 
     private void OnDisable()
