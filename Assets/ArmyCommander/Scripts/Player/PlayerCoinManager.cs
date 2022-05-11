@@ -35,9 +35,15 @@ public class PlayerCoinManager : MonoBehaviour
 
         if (source.layer == 8)
         {
-            _planeBuilding = source.GetComponent<BuildBase>();
-            _soldRoutine = StartCoroutine(IsStayPlayer());
-
+            if (_coins.Count > 0)
+            {
+                _planeBuilding = source.GetComponent<BuildBase>();
+                if (!_planeBuilding.IsSold)
+                {
+                    _soldRoutine = StartCoroutine(IsStayPlayer());
+                }
+                
+            }
         }
     }
 
@@ -45,19 +51,21 @@ public class PlayerCoinManager : MonoBehaviour
     {
         if (source.layer == 8)
         {
-            StopCoroutine(_soldRoutine);
-
+            if (_soldRoutine != null)
+            {
+                StopCoroutine(_soldRoutine);
+            }
         }
     }
 
     private IEnumerator IsStayPlayer()
     {
-        while (true)
+        while (true && _coins.Count > 0 && _planeBuilding.IsSold == false)
         {
             if (_rb.velocity == Vector3.zero)
             {
-                Debug.Log("Stay");
                 _planeBuilding.SoldBuild();
+                RemoveCoin();
             }
             yield return new WaitForSeconds(0.3f);
         }

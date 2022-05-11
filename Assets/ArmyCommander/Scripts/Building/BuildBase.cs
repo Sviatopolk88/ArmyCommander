@@ -5,6 +5,7 @@ using TMPro;
 public class BuildBase : MonoBehaviour
 {
     public int Cost = 10;
+    public bool IsSold => _buyValue == 0;
     [SerializeField] private TMP_Text _costText; 
     [SerializeField] private GameObject _buildPrefab;
 
@@ -20,15 +21,10 @@ public class BuildBase : MonoBehaviour
     {
         _buyValue--;
         _costText.text = _buyValue.ToString(); 
-    }
-
-    public IEnumerator CreateBuild()
-    {
-        while(_buyValue < Cost)
+        if (IsSold)
         {
-
-            yield return new WaitForSeconds(0.5f);
+            var build = Instantiate(_buildPrefab);
+            build.transform.position = transform.position + Vector3.up;
         }
-        
     }
 }
