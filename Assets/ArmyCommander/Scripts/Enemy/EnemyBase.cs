@@ -1,15 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBase : MonoBehaviour, ICharacter, IHittable, IPowerAttack
+public class EnemyBase : MonoBehaviour, IHittable
 {
     public int Health = 100;
     public int Damage = 5;
     public float Speed = 3f;
-    public int health => Health;
-    public int damage => Damage;
-    public float speed => Speed;
 
     public bool isDied => Health <= 0;
 

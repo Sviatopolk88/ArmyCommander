@@ -12,14 +12,14 @@ GameObject:
   - component: {fileID: 7606162398845501380}
   - component: {fileID: 8292261657353337591}
   - component: {fileID: 1878893609249376017}
-  - component: {fileID: -950555843377175959}
-  - component: {fileID: 3821462111723388767}
-  - component: {fileID: 2930959900672647563}
-  - component: {fileID: 4865088846219465647}
+  - component: {fileID: 7560965591815138414}
+  - component: {fileID: -8135714085268981782}
+  - component: {fileID: 8692954279887306941}
   - component: {fileID: -8938779902740210335}
+  - component: {fileID: 8523564276855715759}
   - component: {fileID: 3577766886585596417}
-  - component: {fileID: 7914838266754841670}
   - component: {fileID: 1690583393555390142}
+  - component: {fileID: 7914838266754841670}
   m_Layer: 7
   m_Name: Soldjer
   m_TagString: Untagged
@@ -105,7 +105,7 @@ CapsuleCollider:
   m_Height: 1.8
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-950555843377175959
+--- !u!114 &7560965591815138414
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -114,39 +114,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 8486309625375129602}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ecc11a66b94915541b65502253e61b9e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Point: {fileID: 0}
---- !u!114 &3821462111723388767
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8486309625375129602}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8274d0cf4b65c0c409db3246019b0d9f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TimeRecharge: 0.3
---- !u!114 &2930959900672647563
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8486309625375129602}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 669bad0fdb21d6a4896353cf12481d63, type: 3}
+  m_Script: {fileID: 11500000, guid: f7658852f00590d408babee8e7467383, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Health: 100
-  Damage: 10
+  Damage: 5
   Speed: 3
---- !u!114 &4865088846219465647
+  _banknote: {fileID: 5167770434359420978, guid: d63305fa05f84e24c8c3fa807ea6b209, type: 3}
+--- !u!114 &-8135714085268981782
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -155,10 +130,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 8486309625375129602}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: efeadde0ac1440e47a0b0179d28f3a4f, type: 3}
+  m_Script: {fileID: 11500000, guid: c0fe5e3249f11e841ba1ba21c82ca885, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TimeRecharge: 0.3
   _bullet: {fileID: 2544342779930833337, guid: 57daece2ddbb3814780d3f47151b9380, type: 3}
+--- !u!114 &8692954279887306941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8486309625375129602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1eaf45f80b520341bc8cc47a25e0056, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StopDistanceAttack: 7
 --- !u!114 &-8938779902740210335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,6 +161,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _coin: {fileID: 208920107668371383, guid: d63305fa05f84e24c8c3fa807ea6b209, type: 3}
+--- !u!114 &8523564276855715759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8486309625375129602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 452f35fcf47e5574ab18277785764b96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3577766886585596417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,22 +185,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1163295e232bf1d4ebeddd5199279cf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!54 &7914838266754841670
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8486309625375129602}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 116
-  m_CollisionDetection: 0
 --- !u!195 &1690583393555390142
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -222,6 +207,22 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!54 &7914838266754841670
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8486309625375129602}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 116
+  m_CollisionDetection: 0
 --- !u!1 &8661267199080494828
 GameObject:
   m_ObjectHideFlags: 0

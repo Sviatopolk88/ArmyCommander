@@ -8,6 +8,18 @@ public class Detector : MonoBehaviour, IDetector
 
     private List<GameObject> _detectedObjects = new List<GameObject>();
 
+    private void Start()
+    {
+        EventManager.OnCharacterDie.AddListener(DeathDetectableObject);
+    }
+
+    private void DeathDetectableObject(GameObject detectableObject)
+    {
+        IDetectableObject target = detectableObject.GetComponent<IDetectableObject>();
+        if (target != null)
+            ReleaseDetection(target);
+    }
+
     public void Detected(IDetectableObject detectableObject)
     {
         if(detectableObject.gameObject.layer != gameObject.layer)
@@ -20,7 +32,6 @@ public class Detector : MonoBehaviour, IDetector
                 OnGameObjectDetectedEvent?.Invoke(gameObject, detectableObject.gameObject);
             }
         }
-        
     }
 
     public void ReleaseDetection(IDetectableObject detectableObject)

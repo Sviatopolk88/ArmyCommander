@@ -42,7 +42,6 @@ public class PlayerCoinManager : MonoBehaviour
                 {
                     _soldRoutine = StartCoroutine(IsStayPlayer());
                 }
-                
             }
         }
     }
@@ -69,7 +68,6 @@ public class PlayerCoinManager : MonoBehaviour
             }
             yield return new WaitForSeconds(0.3f);
         }
-        
     }
 
     private void OnDisable()
@@ -93,7 +91,6 @@ public class PlayerCoinManager : MonoBehaviour
             _coins.RemoveAt(_coins.Count - 1);
             _coinPosition -= new Vector3(0, 0.1f, 0);
         }
-        
     }
 
 

@@ -5,12 +5,14 @@ using UnityEngine;
 public class SoldjerSpawner : MonoBehaviour
 {
     public List<Transform> Points = new List<Transform>();
+    public float RespawnRate = 5;
     [SerializeField] private Transform _soldjerPrefab;
-    [SerializeField] private SoldjerController _soldjers;
+    [SerializeField] private SoldjerController _soldiers;
 
     private int _index;
     private Transform _point;
     private Coroutine _spawnerRoutine;
+    private UnitMove _unitMove;
 
 
     void Start()
@@ -35,11 +37,11 @@ public class SoldjerSpawner : MonoBehaviour
         {
             _point = Points[_index];
             _index++;
-            var soldjer = Instantiate(_soldjerPrefab);
-            soldjer.GetComponent<SoldjerMove>().Point = _point;
-            soldjer.position = transform.position;
-            _soldjers.AddSoldjersList(soldjer.gameObject);
-            yield return new WaitForSeconds(1);
+            var soldier = Instantiate(_soldjerPrefab);
+            _soldiers.AddSoldjersList(soldier.gameObject);
+            soldier.position = transform.position;
+            soldier.GetComponent<UnitMove>().MoveTo(_point.gameObject, 0.0f);
+            yield return new WaitForSeconds(RespawnRate);
         }
     }
 }

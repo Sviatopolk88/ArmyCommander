@@ -1,54 +1,44 @@
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour, ICharacter, IHittable, IPowerAttack
+public class PlayerController : CharacterBase
 {
-    //public float Speed = 5f;
     public int MaxHealth = 100;
     public int Damage = 10;
-    public int damage => Damage;
-
-    [SerializeField] private Joystick _joystick;
-
-    private Rigidbody _rigidbody;
+    public float Speed = 5f;
     
-    private int _health;
-
-    public float speed => 5f;
-
-    public bool isDied => _health <= 0;
-
+    [SerializeField] private Joystick _joystick;
+    private Rigidbody _rigidbody;
 
     void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
-        _health = MaxHealth;
+        _currentHealth = MaxHealth;
     }
 
     private void FixedUpdate()
     {
-        _rigidbody.velocity = new Vector3(_joystick.Horizontal * speed, 0, _joystick.Vertical * speed);
+        _rigidbody.velocity = new Vector3(_joystick.Horizontal * Speed, 0, _joystick.Vertical * Speed);
     }
-    public void HitObject(int damage)
+    public override void HitObject(int damage)
     {
-        _health -= damage;
-        if (isDied)
+        _currentHealth -= damage;
+        if (IsDied)
         {
             EventManager.SendCharacterDie(gameObject);
             Destroy(gameObject, 0.3f);
             Debug.Log("ГГ умер, несите нового"); // Добавить скрипт респавна
         }
-            
     }
 
     public void HealthRestore(int restore)
     {
-        if (_health < MaxHealth)
+        if (_currentHealth < MaxHealth)
         {
-            _health += restore;
+            _currentHealth += restore;
         }
         else
         {
-            _health = MaxHealth;
+            _currentHealth = MaxHealth;
         }
     }
 }

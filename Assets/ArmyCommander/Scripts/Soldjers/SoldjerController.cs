@@ -7,25 +7,25 @@ public class SoldjerController : MonoBehaviour
 {
     public UnityEvent OnSpawnerSoldjerEvent;
     
-    private List<GameObject> _soldjers = new List<GameObject>();
-    private SoldjerMove _soldjer;
+    private List<GameObject> _soldiers = new List<GameObject>();
+    private SoldjerMove _soldier;
 
     private void OnEnable()
     {
         EventManager.OnCharacterDie.AddListener(RemoveSoldjersList);
     }
-    public void AddSoldjersList(GameObject soldjer)
+    public void AddSoldjersList(GameObject soldier)
     {
-        _soldjers.Add(soldjer);
+        _soldiers.Add(soldier);
     }
 
-    public void RemoveSoldjersList(GameObject soldjer)
+    public void RemoveSoldjersList(GameObject soldier)
     {
-        Debug.Log(soldjer);
-        if (soldjer.layer == 7)
+        Debug.Log(soldier);
+        if (soldier.layer == 7)
         {
-            _soldjers.Remove(soldjer);
-            if (_soldjers.Count <= 0)
+            _soldiers.Remove(soldier);
+            if (_soldiers.Count <= 0)
             {
                 OnSpawnerSoldjerEvent.Invoke();
             }
@@ -35,10 +35,10 @@ public class SoldjerController : MonoBehaviour
     public void Charge()
     {
         var target = EnemyManager.EnemySpawner[0].position;
-        for (int i = 0; i < _soldjers.Count; i++)
+        for (int i = 0; i < _soldiers.Count; i++)
         {
-            _soldjer = _soldjers[i].GetComponent<SoldjerMove>();
-            _soldjer.Move(target);
+            _soldier = _soldiers[i].GetComponent<SoldjerMove>();
+            _soldier.Move(target);
         }
     }
 }

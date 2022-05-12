@@ -3,13 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Attack))]
 public class PlayerAttack : MonoBehaviour
 {
+    /*
     public float TimerRecharge = 0.3f;
 
     private Detector _detector;
-    private Attack _attack;
+    private Shot _attack;
     private float _timer = 0;
     private List<GameObject> _enemies = new List<GameObject>();
 
@@ -27,7 +27,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void Start()
     {
-        _attack = GetComponent<Attack>();
+        _attack = GetComponent<Shot>();
     }
 
     private void Update()
@@ -39,7 +39,7 @@ public class PlayerAttack : MonoBehaviour
             _timer += Time.deltaTime;
             if (_timer >= TimerRecharge)
             {
-                _attack.Shoot(this.transform, _enemies[0].transform);
+                _attack.SimpleShot(this.transform, _enemies[0].transform);
                 _timer = 0;
             }
         }
@@ -69,4 +69,5 @@ public class PlayerAttack : MonoBehaviour
         _detector.OnGameObjectDetectedEvent -= OnGameObjectDetected;
         _detector.OnGameObjectDetectionReleasedEvent -= OnGameObjectDetectionReleased;
     }
+    */
 }
