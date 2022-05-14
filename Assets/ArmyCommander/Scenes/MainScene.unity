@@ -825,21 +825,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f40152af868c5174c832fbd6be567390, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnSpawnerSoldjerEvent:
+  OnSpawnerSoldierEvent:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 900602319}
-        m_TargetAssemblyTypeName: SoldjerSpawner, Assembly-CSharp
-        m_MethodName: StartSpawner
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &662873361
 GameObject:
   m_ObjectHideFlags: 0
@@ -1213,7 +1201,7 @@ GameObject:
   - component: {fileID: 686443318}
   - component: {fileID: 686443317}
   - component: {fileID: 686443316}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2017,7 +2005,7 @@ GameObject:
   - component: {fileID: 900602320}
   - component: {fileID: 900602319}
   m_Layer: 0
-  m_Name: SpawnSoldjers
+  m_Name: SpawnSoldiers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2042,7 +2030,7 @@ MonoBehaviour:
   - {fileID: 2070767079}
   - {fileID: 606658498}
   RespawnRate: 5
-  _soldjerPrefab: {fileID: 7202347259373578097, guid: 071681d7206476140b6701a77a7ec097, type: 3}
+  _soldierPrefab: {fileID: 7202347259373578097, guid: 071681d7206476140b6701a77a7ec097, type: 3}
   _soldiers: {fileID: 658071090}
 --- !u!65 &900602320
 BoxCollider:
@@ -3235,7 +3223,6 @@ GameObject:
   - component: {fileID: 1767874347}
   - component: {fileID: 1767874345}
   - component: {fileID: 1767874339}
-  - component: {fileID: 1767874346}
   m_Layer: 10
   m_Name: Player
   m_TagString: Untagged
@@ -3366,19 +3353,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1163295e232bf1d4ebeddd5199279cf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1767874346
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1767874338}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8ebbf50cc49f2848ba8c4b9db2418d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _bullet: {fileID: 2544342779930833337, guid: 57daece2ddbb3814780d3f47151b9380, type: 3}
 --- !u!114 &1767874347
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3391,7 +3365,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c761528d37cd2794ebf7ed4429899f0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimerRecharge: 0.3
 --- !u!114 &1767874348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3715,7 +3688,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2018797032}
   m_Layer: 0
-  m_Name: SoldjersDislocation
+  m_Name: SoldiersDislocation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

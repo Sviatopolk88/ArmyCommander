@@ -226,7 +226,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Health: 100
-  Damage: 5
+  Damage: 10
   Speed: 3
   _banknote: {fileID: 5167770434359420978, guid: d63305fa05f84e24c8c3fa807ea6b209, type: 3}
 --- !u!114 &870038055296316770
@@ -242,7 +242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TimeRecharge: 0.3
-  _bullet: {fileID: 812125531185026565, guid: 0bf37343a86570d468ae0354a7ab1abd, type: 3}
+  _bullet: {fileID: 2544342779930833337, guid: 57daece2ddbb3814780d3f47151b9380, type: 3}
 --- !u!114 &2181073540986547072
 MonoBehaviour:
   m_ObjectHideFlags: 0

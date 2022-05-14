@@ -2,17 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoldjerSpawner : MonoBehaviour
+public class PlayerUnitsSpawner : MonoBehaviour
 {
     public List<Transform> Points = new List<Transform>();
     public float RespawnRate = 5;
-    [SerializeField] private Transform _soldjerPrefab;
-    [SerializeField] private SoldjerController _soldiers;
+    [SerializeField] private Transform _soldierPrefab;
+    [SerializeField] private SoldierController _soldiers;
 
     private int _index;
     private Transform _point;
     private Coroutine _spawnerRoutine;
-    private UnitMove _unitMove;
 
 
     void Start()
@@ -37,8 +36,8 @@ public class SoldjerSpawner : MonoBehaviour
         {
             _point = Points[_index];
             _index++;
-            var soldier = Instantiate(_soldjerPrefab);
-            _soldiers.AddSoldjersList(soldier.gameObject);
+            var soldier = Instantiate(_soldierPrefab);
+            _soldiers.AddSoldiersList(soldier.gameObject);
             soldier.position = transform.position;
             soldier.GetComponent<UnitMove>().MoveTo(_point.gameObject, 0.0f);
             yield return new WaitForSeconds(RespawnRate);

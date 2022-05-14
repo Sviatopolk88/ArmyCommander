@@ -5,26 +5,38 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public float Speed;
-    public Transform Target;
+    public Vector3 Target;
     public int Damage;
-    
-    void Update()
+    public int TargetLayer;
+
+    private int _gorundLayer = 11;
+
+    private Rigidbody _rigidbody;
+
+    private void Start()
     {
-        if (Target != null)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, Target.position, Speed * Time.deltaTime);
-        }
-        Destroy(gameObject, 1f); // Уменьшить время самоуничтожения
+        _rigidbody = GetComponent<Rigidbody>();
+        _rigidbody.AddForce((Target - transform.position) * Speed);
+        Destroy(gameObject, 3f); // Уменьшить время самоуничтожения
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        IHittable hitObject = other.gameObject.GetComponent<IHittable>();
-        if (hitObject != null)
+        
+        if (other.gameObject.layer == TargetLayer)
         {
-            hitObject.HitObject(Damage);
+            IHittable hitObject = other.gameObject.GetComponent<IHittable>();
+            if (hitObject != null)
+            {
+                hitObject.HitObject(Damage);
 
+                Destroy(gameObject);
+            }
+        }
+        else if(other.gameObject.layer == _gorundLayer)
+        {
             Destroy(gameObject, 0.1f);
+            // Анимация попадания пули в землю
         }
     }
 }
