@@ -13,8 +13,12 @@ public class PlayerUnitsSpawner : MonoBehaviour
     private Transform _point;
     private Coroutine _spawnerRoutine;
 
+    private void OnEnable()
+    {
+        //SoldierController.
+    }
 
-    void Start()
+    private void Start()
     {
         StartSpawner();
     }

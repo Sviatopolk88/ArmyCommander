@@ -24,14 +24,13 @@ public class SoldierController : MonoBehaviour
         if (soldier.layer == 7)
         {
             _soldiers.Remove(soldier);
-            Debug.Log(_soldiers.Count);
             if (_soldiers.Count <= 0)
             {
                 OnSpawnerSoldierEvent.Invoke();
             }
         }
-
     }
+
     public void Charge()
     {
         var target = EnemyManager.EnemySpawner[0];
