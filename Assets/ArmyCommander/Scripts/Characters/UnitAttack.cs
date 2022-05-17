@@ -7,9 +7,16 @@ public class UnitAttack : MonoBehaviour
 
     [SerializeField] private Bullet _bullet;
 
+    private AnimatorController _animator;
+
     private Coroutine _attackRoutine;
     private Vector3 _target;
     private int _targetLayer;
+
+    private void Start()
+    {
+        _animator = GetComponentInChildren<AnimatorController>();
+    }
 
     public void Attack(Vector3 target, int targetLayer)
     {
@@ -23,14 +30,20 @@ public class UnitAttack : MonoBehaviour
 
     public void StopAttack()
     {
-        StopCoroutine(_attackRoutine);
+        if (_attackRoutine != null)
+        {
+            StopCoroutine(_attackRoutine);
+        }
         _attackRoutine = null;
+
     }
 
     private IEnumerator AttackCoroutine()
     {
         while (true)
         {
+            // прописать проверку на наличие союзника на пути выстрела
+            _animator.ShootAnimation();
             var bullet = Instantiate(_bullet);
             bullet.transform.position = transform.TransformPoint(Vector3.forward * 1.5f);
             bullet.Target = _target;

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class UnitReactionDetector : MonoBehaviour
 {
+    /*
     public float StopDistanceAttack = 7.0f;
 
     protected Detector _detector;
@@ -74,5 +75,5 @@ public class UnitReactionDetector : MonoBehaviour
         _detector.OnGameObjectDetectedEvent -= OnGameObjectDetected;
         _detector.OnGameObjectDetectionReleasedEvent -= OnGameObjectDetectionReleased;
     }
-
+    */
 }

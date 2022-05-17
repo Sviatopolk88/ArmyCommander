@@ -1,44 +1,91 @@
 using UnityEngine;
+using UnityEngine.UI;
 
-public class PlayerController : CharacterBase
+public class PlayerController : Unit
 {
-    public int MaxHealth = 100;
-    public int Damage = 10;
-    public float Speed = 5f;
-    
+    public float TimerRestore = 5.0f;
+
     [SerializeField] private Joystick _joystick;
+    [SerializeField] private Text _healthText;
+    
+
     private Rigidbody _rigidbody;
+    private AnimatorController _playerAnimator;
+    private PlayerCashManager _cash;
+
+    private float _timer;
+    private Vector3 _homePosition;
 
     void Start()
     {
+        _homePosition = transform.position;
+        _currentHealth = Health;
+        _healthText.text = _currentHealth.ToString();
         _rigidbody = GetComponent<Rigidbody>();
-        _currentHealth = MaxHealth;
+        _playerAnimator = GetComponentInChildren<AnimatorController>();
+        _cash = GetComponent<PlayerCashManager>();
+    }
+
+    private void Update()
+    {
+        if (_currentHealth > 0 && _currentHealth < Health)
+        {
+            _timer += Time.deltaTime;
+            if (_timer >= TimerRestore)
+            {
+                HealthRestore(5);
+                _timer = 0;
+            }
+        }
     }
 
     private void FixedUpdate()
     {
-        _rigidbody.velocity = new Vector3(_joystick.Horizontal * Speed, 0, _joystick.Vertical * Speed);
+        Vector3 moveDirectional = new Vector3(_joystick.Horizontal * Speed, 0, _joystick.Vertical * Speed);
+        _rigidbody.velocity = moveDirectional;
+        transform.LookAt(moveDirectional + transform.position);
+        if (_rigidbody.velocity != Vector3.zero)
+        {
+            _playerAnimator.RunAnimation();
+        }
+        else
+        {
+            _playerAnimator.IdleAnimation();
+        }
     }
+
+    public void Promotion()
+    {
+        Health += 100;
+        _currentHealth += 100;
+        Damage += 10;
+        _healthText.text = _currentHealth.ToString();
+    }
+
     public override void HitObject(int damage)
     {
         _currentHealth -= damage;
-        if (IsDied)
+        _healthText.text = _currentHealth.ToString();
+        if (_isDied)
         {
             EventManager.SendCharacterDie(gameObject);
-            Destroy(gameObject, 0.3f);
-            Debug.Log("ГГ умер, несите нового"); // Добавить скрипт респавна
+            _playerAnimator.DeathAnimation();
+            //Destroy(gameObject, 0.3f);
+            Debug.Log("ГГ умер, несите нового");
+
+            transform.position = _homePosition;
+            _currentHealth = Health;
+            _cash.RemoveAllBanknotes();
         }
     }
 
     public void HealthRestore(int restore)
     {
-        if (_currentHealth < MaxHealth)
+        _currentHealth += restore;
+        if (_currentHealth > Health)
         {
-            _currentHealth += restore;
+            _currentHealth = Health;
         }
-        else
-        {
-            _currentHealth = MaxHealth;
-        }
+        _healthText.text = _currentHealth.ToString();
     }
 }

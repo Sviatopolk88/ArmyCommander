@@ -23,8 +23,8 @@ public class BuildBase : MonoBehaviour
         _costText.text = _buyValue.ToString(); 
         if (IsSold)
         {
-            var build = Instantiate(_buildPrefab);
-            build.transform.position = transform.position + Vector3.up;
+            var build = transform.Find("SoldiersTent");
+            build.gameObject.SetActive(true);
         }
     }
 }
