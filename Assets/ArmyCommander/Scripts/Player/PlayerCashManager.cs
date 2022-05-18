@@ -13,18 +13,20 @@ public class PlayerCashManager : MonoBehaviour
     private Vector3 _banknotePosition = new Vector3(0, 0, -0.7f);
     private List<GameObject> _playerBanknotes = new List<GameObject>();
     private List<GameObject> _banknotes = new List<GameObject>();
-    private Detector _detector;
+    private DetectableObject _detector;
     private BuildBase _planeBuilding;
     private Rigidbody _rb;
     private Coroutine _saleRoutine;
     private Coroutine _addBanknoteRoutine;
+    private AudioSource _changeBanknoteSound;
 
     private void Awake()
     {
-        _detector = GetComponentInChildren<Detector>();
+        _detector = GetComponent<DetectableObject>();
         _rb = GetComponent<Rigidbody>();
         _goldBanknote.text = _playerBanknotes.Count.ToString();
         _silverBanknote.text = _playerBanknotes.Count.ToString();
+        _changeBanknoteSound = GetComponent<AudioSource>();
     }
 
     private void OnEnable()
@@ -35,20 +37,20 @@ public class PlayerCashManager : MonoBehaviour
 
     private void OnGameObjectDetected(GameObject source, GameObject detectedObject)
     {
-        if (source.layer == 12 && detectedObject.layer == 9)
+        if (detectedObject.layer == 10 && source.layer == 9)
         {
-            _banknotes.Add(detectedObject);
+            _banknotes.Add(source);
             if (_addBanknoteRoutine == null)
             {
                 _addBanknoteRoutine = StartCoroutine(AddBanknote());
             }
         }
 
-        if (detectedObject.layer == 8)
+        if (source.layer == 8)
         {
             if (_playerBanknotes.Count > 0)
             {
-                _planeBuilding = detectedObject.GetComponent<BuildBase>();
+                _planeBuilding = source.GetComponent<BuildBase>();
                 if (!_planeBuilding.IsSold)
                 {
                     _saleRoutine = StartCoroutine(IsStayPlayer());
@@ -59,12 +61,12 @@ public class PlayerCashManager : MonoBehaviour
 
     private void OnGameObjectDetectionReleased(GameObject source, GameObject detectedObject)
     {
-        if (source.layer == 12 && detectedObject.layer == 9)
+        if (source.layer == 10 && detectedObject.layer == 9)
         {
-            _banknotes.Remove(detectedObject);
+            _banknotes.Remove(source);
         }
 
-        if (detectedObject.layer == 8)
+        if (source.layer == 8)
         {
             if (_saleRoutine != null)
             {
@@ -106,7 +108,9 @@ public class PlayerCashManager : MonoBehaviour
             Destroy(banknote);
             _banknotes.RemoveAt(lastBanknote);
             _goldBanknote.text = _playerBanknotes.Count.ToString();
-            yield return new WaitForSeconds(0.3f);
+
+            _changeBanknoteSound.Play();
+            yield return new WaitForSeconds(0.1f);
         }
         _addBanknoteRoutine = null;
     }
@@ -119,6 +123,7 @@ public class PlayerCashManager : MonoBehaviour
             _playerBanknotes.RemoveAt(_playerBanknotes.Count - 1);
             _goldBanknote.text = _playerBanknotes.Count.ToString();
             _banknotePosition -= new Vector3(0, 0.1f, 0);
+            _changeBanknoteSound.Play();
         }
     }
 

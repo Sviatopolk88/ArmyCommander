@@ -8,7 +8,7 @@ public class Unit : MonoBehaviour, IHittable
     public float Speed = 3f;
 
     private AnimatorController _animator;
-    private UnitMove _moveAction;
+    private Movable _moveAction;
     private UnitAttack _attackAction;
     private IEnumerator _routine;
 
@@ -21,14 +21,13 @@ public class Unit : MonoBehaviour, IHittable
     {
         _currentHealth = Health;
         _animator = GetComponentInChildren<AnimatorController>();
-        _moveAction = GetComponent<UnitMove>();
+        _moveAction = GetComponent<Movable>();
         _attackAction = GetComponent<UnitAttack>();
     }
 
     public virtual void HitObject(int damage)
     {
         _currentHealth -= damage;
-
         if (_isDied && _routine == null)
         {
             _routine = DeathUnit();
@@ -41,12 +40,11 @@ public class Unit : MonoBehaviour, IHittable
         _attackAction.StopAttack();
         _moveAction.StopUnit();
         _animator.DeathAnimation();
-
-        EventManager.SendCharacterDie(gameObject);
         
         yield return new WaitForSeconds(1.5f);
 
         Destroy(gameObject);
+        EventManager.SendCharacterDie(gameObject);
         _banknote.CreateBanknote(_banknote.gameObject, transform);
     }
 

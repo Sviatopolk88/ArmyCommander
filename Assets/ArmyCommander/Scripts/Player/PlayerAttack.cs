@@ -5,13 +5,14 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    /*
+    
     public float TimerRecharge = 0.3f;
 
     private Detector _detector;
-    private Shot _attack;
+    private UnitAttack _attack;
     private float _timer = 0;
     private List<GameObject> _enemies = new List<GameObject>();
+    private int _enemyLayer = 6;
 
     private void Awake()
     {
@@ -27,7 +28,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void Start()
     {
-        _attack = GetComponent<Shot>();
+        _attack = GetComponent<UnitAttack>();
     }
 
     private void Update()
@@ -35,27 +36,35 @@ public class PlayerAttack : MonoBehaviour
         
         if (_enemies.Count > 0)
         {
-            transform.LookAt(_enemies[0].transform);
+            var enemy = _enemies[0].transform;
+            transform.LookAt(enemy);
             _timer += Time.deltaTime;
             if (_timer >= TimerRecharge)
             {
-                _attack.SimpleShot(this.transform, _enemies[0].transform);
+                _attack.Attack(enemy, enemy.gameObject.layer);
                 _timer = 0;
             }
+        }
+        else
+        {
+            _attack.StopAttack();
         }
         
     }
 
     private void EnemyKilled(GameObject enemy)
     {
-        _detector.ReleaseDetection(enemy.GetComponent<IDetectableObject>());
+        _detector.ReleaseDetection(enemy.GetComponent<DetectableObject>());
     }
 
     private void OnGameObjectDetected(GameObject source, GameObject detectedObject)
     {
-        if (!_enemies.Contains(detectedObject))
+        if (detectedObject.layer == _enemyLayer)
         {
-            _enemies.Add(detectedObject);
+            if (!_enemies.Contains(detectedObject))
+            {
+                _enemies.Add(detectedObject);
+            }
         }
     }
 
@@ -69,5 +78,5 @@ public class PlayerAttack : MonoBehaviour
         _detector.OnGameObjectDetectedEvent -= OnGameObjectDetected;
         _detector.OnGameObjectDetectionReleasedEvent -= OnGameObjectDetectionReleased;
     }
-    */
+    
 }

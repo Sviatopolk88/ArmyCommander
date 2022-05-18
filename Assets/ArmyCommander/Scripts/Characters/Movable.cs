@@ -8,8 +8,14 @@ public class Movable : MonoBehaviour
     private Transform _target;
     private Vector3 _homePosition;
     private Vector3 _defaultRotate;
-    private bool _isAttacked = false;
+
+    private bool _isAttacking = false;
+    private bool _isMoveToAttack = false;
+    private bool _isMoveToPoint = false;
     private bool _isReturningHome = false;
+    private bool _isBackToHome = false;
+
+    private float _stopDistanceAttack = 6.0f;
 
     private void Start()
     {
@@ -25,13 +31,35 @@ public class Movable : MonoBehaviour
     }
     private void Update()
     {
-        if (_isAttacked)
+        if (_isMoveToAttack)
         {
-            _agent.SetDestination(_target.position);
-            var distanceAttack = Vector3.Distance(_target.position, transform.position);
-            if (distanceAttack - _agent.stoppingDistance <= 0)
+            if (_target != null)
             {
-                _animator.ShootAnimation();
+                _agent.SetDestination(_target.position);
+                _agent.stoppingDistance = _stopDistanceAttack;
+                _animator.RunAnimation();
+                float D = (float)Mathf.Abs(Vector3.Distance(_target.position, transform.position));
+                var distanceAttack = D - _stopDistanceAttack;
+                if (distanceAttack <= 0)
+                {
+                    _isMoveToAttack = false;
+                    _animator.ShootAnimation();
+                    _isAttacking = true;
+                }
+            }
+        }
+
+        if (_isAttacking)
+        {
+            if (_target != null)
+            {
+                var distanceToTarget = Mathf.Abs(Vector3.Distance(_target.position, transform.position));
+                if (distanceToTarget > _stopDistanceAttack)
+                {
+                    _isAttacking = false;
+                    _isMoveToAttack = true;
+                    _animator.RunAnimation();
+                }
             }
             if (_isReturningHome)
             {
@@ -43,39 +71,52 @@ public class Movable : MonoBehaviour
             }
         }
         
-        else if (_agent.remainingDistance < 0.2f)
+        if (_isMoveToPoint)
+        {
+            _agent.SetDestination(_target.position);
+            _animator.RunAnimation();
+            _isMoveToPoint = false;
+        }
+        
+        if (_agent.remainingDistance < 0.1f)
         {
             _animator.IdleAnimation();
             transform.LookAt(_defaultRotate + transform.position);
         } 
         
+        if (_isBackToHome)
+        {
+            _agent.SetDestination(_homePosition);
+            _agent.stoppingDistance = 0;
+            _isBackToHome = false;
+        }
+
     }
-    public void MoveToAttack(GameObject target)
+
+    public void MoveToAttack(Transform target)
     {
-        _target = target.transform;
-        _agent.stoppingDistance = 7.0f;
-        _isAttacked = true;
+        _target = target;
+        
+        _isMoveToAttack = true;
     }
     public void BackToHome()
     {
-        _isAttacked = false;
-        _agent.SetDestination(_homePosition);
-        _agent.stoppingDistance = 0;
+        _isAttacking = false;
+        _isMoveToAttack = false;
+        _isBackToHome = true;
+        _animator.RunAnimation();
     }
-    public void MoveToPoint(Vector3 targetPoint)
+    public void MoveToPoint(Transform targetPoint)
     {
-        if (targetPoint != null)
-        {
-            _isAttacked = false;
-            Debug.Log(targetPoint);
-            _agent.SetDestination(targetPoint);
-            _agent.stoppingDistance = 0;
-        }
+        _isAttacking = false;
+        _isMoveToPoint = true;
+        _target = targetPoint;
         
     }
     public void StopUnit()
     {
-        _isAttacked = false;
+        _isAttacking = false;
         _agent.isStopped = true;
+        _animator.IdleAnimation();
     }
 }

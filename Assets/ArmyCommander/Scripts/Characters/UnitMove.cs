@@ -3,6 +3,7 @@ using UnityEngine.AI;
 
 public class UnitMove : MonoBehaviour
 {
+    /*
     private NavMeshAgent _agent;
     private AnimatorController _animator;
     private Transform _target;
@@ -38,21 +39,21 @@ public class UnitMove : MonoBehaviour
         }
     }
 
-    public void MoveTo(GameObject target, float stopDistance)
+    public void MoveTo(Vector3 target)
     {
         if (target != null)
         {
-            _target = target.transform;
-            _stopDistance = stopDistance;
+            _target.position = target;
+            _stopDistance = 0;
             _isTarget = true;
         }
     }
 
-    public void BackToHome(Vector3 target, float stopDistance)
+    public void BackToHome(Vector3 target)
     {
         _isTarget = false;
         _agent.SetDestination(target);
-        _agent.stoppingDistance = stopDistance;
+        _agent.stoppingDistance = 0;
     }
 
     public void StopUnit()
@@ -62,4 +63,5 @@ public class UnitMove : MonoBehaviour
         _isTarget = false;
         _agent.isStopped = true;
     }
+    */
 }

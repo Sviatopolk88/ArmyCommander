@@ -41,9 +41,8 @@ public class EnemyUnitReactionDetector : MonoBehaviour
             if (_detectedObjects.Count == 0)
             {
                 _currentTarget = detectedObject;
-                //_move.MoveTo(_target, StopDistanceAttack);
-                _movable.MoveToAttack(_currentTarget);
-                _attack.Attack(_currentTarget.transform.position, _currentTarget.layer);
+                _movable.MoveToAttack(_currentTarget.transform);
+                _attack.Attack(_currentTarget.transform, _currentTarget.layer); //
             }
             _detectedObjects.Add(detectedObject);
         }
@@ -58,15 +57,13 @@ public class EnemyUnitReactionDetector : MonoBehaviour
             if (_detectedObjects.Count > 0)
             {
                 _currentTarget = _detectedObjects[0];
-                _movable.MoveToAttack(_currentTarget);
-                //_move.MoveTo(_currentTarget, StopDistanceAttack);
-                _attack.Attack(_currentTarget.transform.position, _currentTarget.layer);
+                _movable.MoveToAttack(_currentTarget.transform);
+                _attack.Attack(_currentTarget.transform, _currentTarget.layer); //
             }
             else
             {
                 _attack.StopAttack();
                 _movable.BackToHome();
-                //_move.BackToHome(_homePosition, 0);
             }
         }
     }

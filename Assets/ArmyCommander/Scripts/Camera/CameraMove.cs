@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraMove : MonoBehaviour
@@ -10,9 +8,14 @@ public class CameraMove : MonoBehaviour
     private Vector3 _velocity = Vector3.zero;
     private Vector3 _cameraPosition;
 
-    void Update()
+    private void Start()
     {
-        _cameraPosition = _player.transform.position + new Vector3(-6f, 18f, -8f);
+        transform.position = _player.transform.position + new Vector3(-5.6f, 15f, -8.2f);
+    }
+
+    private void Update()
+    {
+        _cameraPosition = _player.transform.position + new Vector3(-5.6f, 15f, -8.2f);
         transform.position = Vector3.SmoothDamp(transform.position, _cameraPosition, ref _velocity, _smooth);
     }
 }

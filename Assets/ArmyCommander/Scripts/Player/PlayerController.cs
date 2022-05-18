@@ -7,6 +7,7 @@ public class PlayerController : Unit
 
     [SerializeField] private Joystick _joystick;
     [SerializeField] private Text _healthText;
+    [SerializeField] private UIProgressBar _healthBar;
     
 
     private Rigidbody _rigidbody;
@@ -24,6 +25,7 @@ public class PlayerController : Unit
         _rigidbody = GetComponent<Rigidbody>();
         _playerAnimator = GetComponentInChildren<AnimatorController>();
         _cash = GetComponent<PlayerCashManager>();
+        _healthBar.SetValue(_currentHealth, Health);
     }
 
     private void Update()
@@ -59,12 +61,14 @@ public class PlayerController : Unit
         Health += 100;
         _currentHealth += 100;
         Damage += 10;
+        _healthBar.SetValue(_currentHealth, Health);
         _healthText.text = _currentHealth.ToString();
     }
 
     public override void HitObject(int damage)
     {
         _currentHealth -= damage;
+        _healthBar.SetValue(_currentHealth, Health);
         _healthText.text = _currentHealth.ToString();
         if (_isDied)
         {
@@ -75,6 +79,7 @@ public class PlayerController : Unit
 
             transform.position = _homePosition;
             _currentHealth = Health;
+            _healthBar.SetValue(_currentHealth, Health);
             _cash.RemoveAllBanknotes();
         }
     }
@@ -86,6 +91,7 @@ public class PlayerController : Unit
         {
             _currentHealth = Health;
         }
+        _healthBar.SetValue(_currentHealth, Health);
         _healthText.text = _currentHealth.ToString();
     }
 }

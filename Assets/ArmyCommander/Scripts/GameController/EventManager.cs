@@ -7,6 +7,7 @@ public class EventManager : MonoBehaviour
 {
     public static UnityEvent<GameObject> OnCharacterDie = new UnityEvent<GameObject>();
     public static UnityEvent OnAllPlayerUnitsDied = new UnityEvent();
+    public static UnityEvent OnPlayerUnitsAttacking = new UnityEvent();
 
     public static void SendCharacterDie(GameObject enemy)
     {
@@ -16,6 +17,11 @@ public class EventManager : MonoBehaviour
     public static void SendAllPlayerUnitsDied()
     {
         OnAllPlayerUnitsDied.Invoke();
+    }
+
+    public static void SendCharge()
+    {
+        OnPlayerUnitsAttacking.Invoke();
     }
 
 }

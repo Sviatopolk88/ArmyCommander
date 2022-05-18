@@ -7,7 +7,7 @@ public class PlayerUnitsSpawner : MonoBehaviour
     public List<Transform> Points = new List<Transform>();
     public float RespawnRate = 5;
     [SerializeField] private Transform _soldierPrefab;
-    [SerializeField] private PlayerUnitsManager _soldiersManager;
+    [SerializeField] private PlayerUnitsManager _playerUnitsManager;
 
     private Transform _point;
     private Coroutine _spawnerRoutine;
@@ -19,7 +19,7 @@ public class PlayerUnitsSpawner : MonoBehaviour
 
     private void Start()
     {
-        if (_soldiersManager.NumberOfSoldiers() < Points.Count)
+        if (_playerUnitsManager.NumberOfSoldiers() < Points.Count)
         {
             StartSpawner();
         }
@@ -34,19 +34,17 @@ public class PlayerUnitsSpawner : MonoBehaviour
     {
         StopCoroutine(_spawnerRoutine);
     }
-    
     private IEnumerator Spawner()
     {
-        while (_soldiersManager.IndexPoint() < Points.Count)
+        while (_playerUnitsManager.IndexPoint() < Points.Count)
         {
-            var index = _soldiersManager.IndexPoint();
+            var index = _playerUnitsManager.IndexPoint();
             _point = Points[index];
             var soldier = Instantiate(_soldierPrefab);
-            _soldiersManager.AddSoldiersList(soldier.gameObject);
+            _playerUnitsManager.AddSoldiersList(soldier.gameObject);
             soldier.position = transform.position + Vector3.forward*2;
-            soldier.GetComponent<Movable>().MoveToPoint(_point.position);
-            //soldier.GetComponent<UnitMove>().MoveTo(_point.gameObject, 0);
+            soldier.GetComponent<Movable>().MoveToPoint(_point);
             yield return new WaitForSeconds(RespawnRate);
         }
-    }
+    }   
 }

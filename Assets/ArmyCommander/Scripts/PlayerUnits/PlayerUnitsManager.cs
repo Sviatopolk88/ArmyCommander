@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class PlayerUnitsManager : MonoBehaviour
 {
     private List<GameObject> _soldiers = new List<GameObject>();
-    private UnitMove _soldier;
+    private Movable _soldier;
     private bool _isSoldiersInAttack = false;
     private int _indexPoint = 0;
 
@@ -23,6 +23,11 @@ public class PlayerUnitsManager : MonoBehaviour
     public int NumberOfSoldiers()
     {
         return _soldiers.Count;
+    }
+
+    public bool IsAttacking()
+    {
+        return _isSoldiersInAttack;
     }
     
     public void AddSoldiersList(GameObject soldier)
@@ -53,8 +58,8 @@ public class PlayerUnitsManager : MonoBehaviour
             var target = EnemyManager.EnemySpawner[0];
             for (int i = 0; i < _soldiers.Count; i++)
             {
-                _soldier = _soldiers[i].GetComponent<UnitMove>();
-                _soldier.MoveTo(target.gameObject, 0);
+                _soldier = _soldiers[i].GetComponent<Movable>();
+                _soldier.MoveToAttack(target);
             }
         }
     }

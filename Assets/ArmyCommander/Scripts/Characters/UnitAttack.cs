@@ -10,7 +10,8 @@ public class UnitAttack : MonoBehaviour
     private AnimatorController _animator;
 
     private Coroutine _attackRoutine;
-    private Vector3 _target;
+    //private Vector3 _target;
+    private Transform _target;
     private int _targetLayer;
 
     private void Start()
@@ -18,10 +19,12 @@ public class UnitAttack : MonoBehaviour
         _animator = GetComponentInChildren<AnimatorController>();
     }
 
-    public void Attack(Vector3 target, int targetLayer)
+    //public void Attack(Vector3 target, int targetLayer)
+    public void Attack(Transform target, int targetLayer)
     {
         _target = target;
         _targetLayer = targetLayer;
+        transform.LookAt(_target);
         if (_attackRoutine == null)
         {
             _attackRoutine = StartCoroutine(AttackCoroutine());
@@ -35,18 +38,16 @@ public class UnitAttack : MonoBehaviour
             StopCoroutine(_attackRoutine);
         }
         _attackRoutine = null;
-
     }
 
     private IEnumerator AttackCoroutine()
     {
         while (true)
         {
-            // прописать проверку на наличие союзника на пути выстрела
             _animator.ShootAnimation();
             var bullet = Instantiate(_bullet);
             bullet.transform.position = transform.TransformPoint(Vector3.forward * 1.5f);
-            bullet.Target = _target;
+            bullet.Target = _target.position; // sss
             bullet.TargetLayer = _targetLayer;
             var damage = this.GetComponent<Unit>().Damage;
             bullet.Damage = damage;

@@ -1055,7 +1055,6 @@ GameObject:
   - component: {fileID: 8692954279887306941}
   - component: {fileID: -8938779902740210335}
   - component: {fileID: -809404108458946095}
-  - component: {fileID: 1277764820519183228}
   - component: {fileID: 3577766886585596417}
   - component: {fileID: 1690583393555390142}
   - component: {fileID: 7914838266754841670}
@@ -1158,7 +1157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Health: 50
-  Damage: 1
+  Damage: 2
   Speed: 3
   _banknote: {fileID: 5167770434359420978, guid: d63305fa05f84e24c8c3fa807ea6b209, type: 3}
 --- !u!114 &-8135714085268981782
@@ -1211,18 +1210,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 36a728c9384d96d4b873cb3435ec3c20, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1277764820519183228
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8486309625375129602}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 452f35fcf47e5574ab18277785764b96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &3577766886585596417

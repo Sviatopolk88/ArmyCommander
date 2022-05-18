@@ -125,8 +125,6 @@ GameObject:
   - component: {fileID: 870038055296316770}
   - component: {fileID: 2181073540986547072}
   - component: {fileID: 5485975114389956581}
-  - component: {fileID: -8635270200386654308}
-  - component: {fileID: -3531770675640135320}
   - component: {fileID: 7378392827293872507}
   - component: {fileID: 7378392827293872486}
   - component: {fileID: 7378392827293872504}
@@ -241,7 +239,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Health: 50
-  Damage: 1
+  Damage: 2
   Speed: 3
   _banknote: {fileID: 5167770434359420978, guid: d63305fa05f84e24c8c3fa807ea6b209, type: 3}
 --- !u!114 &870038055296316770
@@ -284,30 +282,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _coin: {fileID: 208920107668371383, guid: d63305fa05f84e24c8c3fa807ea6b209, type: 3}
---- !u!114 &-8635270200386654308
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7378392827293872494}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9acac4b16d3b13e4caa3b2ed966126e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &-3531770675640135320
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7378392827293872494}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 452f35fcf47e5574ab18277785764b96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7378392827293872507
 MonoBehaviour:
   m_ObjectHideFlags: 0

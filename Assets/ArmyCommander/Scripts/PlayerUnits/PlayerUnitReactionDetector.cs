@@ -37,8 +37,8 @@ public class PlayerUnitReactionDetector : MonoBehaviour
             {
             
                 _target = detectedObject;
-                _movable.MoveToAttack(_target);
-                _attack.Attack(_target.transform.position, _target.layer);
+                _movable.MoveToAttack(_target.transform);
+                _attack.Attack(_target.transform, _target.layer); //
             }
             _detectedObjects.Add(detectedObject);
         }
@@ -54,8 +54,8 @@ public class PlayerUnitReactionDetector : MonoBehaviour
             if (_detectedObjects.Count > 0)
             {
                 _target = _detectedObjects[0];
-                _movable.MoveToAttack(_target);
-                _attack.Attack(_target.transform.position, _target.layer);
+                _movable.MoveToAttack(_target.transform);
+                _attack.Attack(_target.transform, _target.layer); //
             }
             else
             {
@@ -67,7 +67,7 @@ public class PlayerUnitReactionDetector : MonoBehaviour
                 else
                 {
                     var target = EnemyManager.EnemySpawner[0];
-                    _movable.MoveToAttack(target.gameObject);
+                    _movable.MoveToAttack(target);
                 }
             }
         }
