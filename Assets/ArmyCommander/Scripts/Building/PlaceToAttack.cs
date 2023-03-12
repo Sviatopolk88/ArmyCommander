@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class PlaneAttack : MonoBehaviour
+public class PlaceToAttack : MonoBehaviour
 {
     [SerializeField] private GameObject _buttonAttack;
     [SerializeField] private PlayerUnitsManager _soldiersManager;

@@ -44,8 +44,12 @@ public class Unit : MonoBehaviour, IHittable
         yield return new WaitForSeconds(1.5f);
 
         Destroy(gameObject);
-        EventManager.SendCharacterDie(gameObject);
         _banknote.CreateBanknote(_banknote.gameObject, transform);
+    }
+
+    private void OnDisable()
+    {
+        EventManager.SendCharacterDie(gameObject);
     }
 
 }

@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
     public float Speed;
-    public Vector3 Target;
     public int Damage;
     public int TargetLayer;
 
@@ -16,8 +13,8 @@ public class Bullet : MonoBehaviour
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
-        _rigidbody.AddForce((Target - transform.position) * Speed);
-        Destroy(gameObject, 3f); // Уменьшить время самоуничтожения
+        _rigidbody.velocity = transform.forward * Speed;
+        Destroy(gameObject, 2f); 
     }
 
     private void OnTriggerEnter(Collider other)
@@ -35,7 +32,7 @@ public class Bullet : MonoBehaviour
         }
         else if(other.gameObject.layer == _gorundLayer)
         {
-            Destroy(gameObject, 0.1f);
+            Destroy(gameObject);
             // Анимация попадания пули в землю
         }
     }

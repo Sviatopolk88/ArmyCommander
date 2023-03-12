@@ -32,7 +32,10 @@ public class PlayerUnitsSpawner : MonoBehaviour
 
     public void StopSpawner()
     {
-        StopCoroutine(_spawnerRoutine);
+        if (_spawnerRoutine != null)
+        {
+            StopCoroutine(_spawnerRoutine);
+        }
     }
     private IEnumerator Spawner()
     {

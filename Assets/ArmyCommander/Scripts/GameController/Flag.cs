@@ -29,6 +29,6 @@ public class Flag : MonoBehaviour
     }
     public void FlagMove()
     {
-        _flag.position += new Vector3(0, -0.1f, 0);
+        _flag.position += new Vector3(0, -0.1f, 0) * Time.deltaTime;
     }
 }

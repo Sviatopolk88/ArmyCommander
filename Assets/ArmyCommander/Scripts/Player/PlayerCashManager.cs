@@ -13,7 +13,7 @@ public class PlayerCashManager : MonoBehaviour
     private Vector3 _banknotePosition = new Vector3(0, 0, -0.7f);
     private List<GameObject> _playerBanknotes = new List<GameObject>();
     private List<GameObject> _banknotes = new List<GameObject>();
-    private DetectableObject _detector;
+    private DetectableObject _detectableObject;
     private BuildBase _planeBuilding;
     private Rigidbody _rb;
     private Coroutine _saleRoutine;
@@ -22,30 +22,35 @@ public class PlayerCashManager : MonoBehaviour
 
     private void Awake()
     {
-        _detector = GetComponent<DetectableObject>();
+        _detectableObject = GetComponent<DetectableObject>();
         _rb = GetComponent<Rigidbody>();
         _goldBanknote.text = _playerBanknotes.Count.ToString();
         _silverBanknote.text = _playerBanknotes.Count.ToString();
         _changeBanknoteSound = GetComponent<AudioSource>();
     }
-
+    
     private void OnEnable()
     {
-        _detector.OnGameObjectDetectedEvent += OnGameObjectDetected;
-        _detector.OnGameObjectDetectionReleasedEvent += OnGameObjectDetectionReleased;
+        _detectableObject.OnGameObjectDetectedEvent += OnGameObjectDetected;
+        _detectableObject.OnGameObjectDetectionReleasedEvent += OnGameObjectDetectionReleased;
+    }
+    
+    public void AddBanknoteList(GameObject banknote)
+    {
+        _banknotes.Add(banknote);
+        if (_addBanknoteRoutine == null)
+        {
+            _addBanknoteRoutine = StartCoroutine(AddBanknote());
+        }
+    }
+
+    public void RemoveBanknoteList(GameObject banknote)
+    {
+        _banknotes.Remove(banknote);
     }
 
     private void OnGameObjectDetected(GameObject source, GameObject detectedObject)
     {
-        if (detectedObject.layer == 10 && source.layer == 9)
-        {
-            _banknotes.Add(source);
-            if (_addBanknoteRoutine == null)
-            {
-                _addBanknoteRoutine = StartCoroutine(AddBanknote());
-            }
-        }
-
         if (source.layer == 8)
         {
             if (_playerBanknotes.Count > 0)
@@ -61,11 +66,6 @@ public class PlayerCashManager : MonoBehaviour
 
     private void OnGameObjectDetectionReleased(GameObject source, GameObject detectedObject)
     {
-        if (source.layer == 10 && detectedObject.layer == 9)
-        {
-            _banknotes.Remove(source);
-        }
-
         if (source.layer == 8)
         {
             if (_saleRoutine != null)
@@ -87,13 +87,13 @@ public class PlayerCashManager : MonoBehaviour
             yield return new WaitForSeconds(0.2f);
         }
     }
-
+    
     private void OnDisable()
     {
-        _detector.OnGameObjectDetectedEvent -= OnGameObjectDetected;
-        _detector.OnGameObjectDetectionReleasedEvent -= OnGameObjectDetectionReleased;
+        _detectableObject.OnGameObjectDetectedEvent -= OnGameObjectDetected;
+        _detectableObject.OnGameObjectDetectionReleasedEvent -= OnGameObjectDetectionReleased;
     }
-
+    
     public IEnumerator AddBanknote()
     {
         while (_banknotes.Count > 0)

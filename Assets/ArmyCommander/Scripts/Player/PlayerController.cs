@@ -16,6 +16,7 @@ public class PlayerController : Unit
 
     private float _timer;
     private Vector3 _homePosition;
+    private bool _onGround = true;
 
     void Start()
     {
@@ -38,6 +39,11 @@ public class PlayerController : Unit
                 HealthRestore(5);
                 _timer = 0;
             }
+        }
+
+        if (!_onGround)
+        {
+            _rigidbody.AddForce(Vector3.down*980);
         }
     }
 
@@ -74,8 +80,8 @@ public class PlayerController : Unit
         {
             EventManager.SendCharacterDie(gameObject);
             _playerAnimator.DeathAnimation();
-            //Destroy(gameObject, 0.3f);
-            Debug.Log("ГГ умер, несите нового");
+
+            Debug.Log("ГГ умер, несите нового"); // ------------
 
             transform.position = _homePosition;
             _currentHealth = Health;
@@ -93,5 +99,21 @@ public class PlayerController : Unit
         }
         _healthBar.SetValue(_currentHealth, Health);
         _healthText.text = _currentHealth.ToString();
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.layer == 11)
+        {
+            _onGround = true;
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.layer == 11)
+        {
+            _onGround = false;
+        }
     }
 }

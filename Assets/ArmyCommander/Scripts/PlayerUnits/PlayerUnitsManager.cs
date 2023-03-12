@@ -52,7 +52,7 @@ public class PlayerUnitsManager : MonoBehaviour
 
     public void Charge()
     {
-        if (!_isSoldiersInAttack)
+        if (!_isSoldiersInAttack && _soldiers.Count > 0)
         {
             _isSoldiersInAttack = true;
             var target = EnemyManager.EnemySpawner[0];

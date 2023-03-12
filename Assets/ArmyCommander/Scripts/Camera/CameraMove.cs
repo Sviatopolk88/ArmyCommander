@@ -10,12 +10,12 @@ public class CameraMove : MonoBehaviour
 
     private void Start()
     {
-        transform.position = _player.transform.position + new Vector3(-5.6f, 15f, -8.2f);
+        transform.position = _player.transform.position + new Vector3(-5.6f, 20f, -8.2f);
     }
 
     private void Update()
     {
-        _cameraPosition = _player.transform.position + new Vector3(-5.6f, 15f, -8.2f);
+        _cameraPosition = _player.transform.position + new Vector3(-5.6f, 20f, -8.2f);
         transform.position = Vector3.SmoothDamp(transform.position, _cameraPosition, ref _velocity, _smooth);
     }
 }
